@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout loadMore;
-    private String path = "https://alpha-api.app.net/stream/0/posts/stream/global";
+    private String path = "";
     private DownLoadData downLoadData;
     private ProgressDialog mProgressDialog;
     private List<MyData> listManager;
