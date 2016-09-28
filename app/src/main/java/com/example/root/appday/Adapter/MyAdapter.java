@@ -1,4 +1,4 @@
-package com.example.root.appday;
+package com.example.root.appday.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.root.appday.Activities.DetailActivity;
+import com.example.root.appday.Models.MyData;
+import com.example.root.appday.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private Context context;
-//    private List<String> listImageView;
+    //    private List<String> listImageView;
 //    private List<String> listContent;
 //    private List<String> listName;
     private List<MyData> listManager;
@@ -46,36 +48,52 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         this.listManager = listManager;
     }
 
-    public void backupData (List<MyData> listManager){
+    public void saveData(List<MyData> listManager) {
 
         this.listManager = listManager;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.layout_manger, parent, false);
+
+        //Cach 1
+//        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+//        View view = layoutInflater.inflate(R.layout.layout_manger, parent, false);
+
+        //Cach 2
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.layout_manger, parent, false);
+
         MyAdapter.ViewHolder rView = new MyAdapter.ViewHolder(view);
         return rView;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        //code test RecyclerView
 //        holder.imAvata.setImageResource(R.drawable.ic_launcher);
 //        holder.mName.setText(myDataList.get(position).getmName());
 //        holder.imAvata.setImageResource(position);
+
+        //Code cach 1 add tung item vao tung list
 //        holder.mContent.setText(listContent.get(position));
-        holder.mContent.setText(listManager.get(position).getmContent());
 //        holder.mName.setText(listName.get(position));
-        holder.mName.setText(listManager.get(position).getmName());
 //        Glide.with(context).load(listImageView.get(position)).into(((ViewHolder) holder).imAvata);
+
+        //Code cach 2
+        holder.mContent.setText(listManager.get(position).getmContent());
+        holder.mName.setText(listManager.get(position).getmName());
         Glide.with(context).load(listManager.get(position).getmImageView()).into(((ViewHolder) holder).imAvatar);
 
-//        holder.mCardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i            }
-//        });
+        //set onClick vao trang detail
+        holder.mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -94,8 +112,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             imAvatar = (ImageView) itemView.findViewById(R.id.ivAvata);
             mName = (TextView) itemView.findViewById(R.id.tvName);
             mContent = (TextView) itemView.findViewById(R.id.tvContent);
-            mCardView= (CardView) itemView.findViewById(R.id.card_view);
-
+            mCardView = (CardView) itemView.findViewById(R.id.card_view);
         }
     }
 }

@@ -1,17 +1,21 @@
-package com.example.root.appday;
+package com.example.root.appday.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ShareCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
+import com.example.root.appday.ActivityTest.NavigationDrawerActivity;
+import com.example.root.appday.Adapter.MyAdapter;
+import com.example.root.appday.Models.MyData;
+import com.example.root.appday.JSON.ParserDataJSON;
+import com.example.root.appday.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +29,7 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
-    private MyAdapter mAdapter;
+    private MyAdapter mMyAdapter;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout loadMore;
@@ -34,12 +38,15 @@ public class MainActivity extends Activity {
     private ProgressDialog mProgressDialog;
     private List<MyData> listManager;
     private boolean isLoading = false;
+    private boolean isCheckConnection = true;
+    private boolean isRefresh = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Load Data refresh khi dau trang
         loadMore = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         loadMore.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -49,8 +56,10 @@ public class MainActivity extends Activity {
             }
         });
 
+        //Load data khi croll cuoi trang
         mRecyclerView = (RecyclerView) findViewById(R.id.rvTest);
         mRecyclerView.setHasFixedSize(true);
+        //kiem tra khi scroll het trang se load data
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -73,8 +82,8 @@ public class MainActivity extends Activity {
 
         listManager = new ArrayList<>();
 
-        mAdapter = new MyAdapter(getApplication(), listManager);
-        mRecyclerView.setAdapter(mAdapter);
+        mMyAdapter = new MyAdapter(getApplication(), listManager);
+        mRecyclerView.setAdapter(mMyAdapter);
 
 //        //Test RecyclerView
 //        list = new ArrayList<>();
@@ -95,6 +104,12 @@ public class MainActivity extends Activity {
         downLoadData = new DownLoadData();
         downLoadData.execute(path);
     }
+
+    public void startNavigationDrawer(View view) {
+        Intent intent = new Intent(MainActivity.this, NavigationDrawerActivity.class);
+        startActivity(intent);
+    }
+
 
     public class DownLoadData extends AsyncTask<String, Void, String> {
 
@@ -118,7 +133,8 @@ public class MainActivity extends Activity {
                 while ((line = bufferedReader.readLine()) != null) {
                     dataLoad.append(line);
                 }
-                Log.d("data", dataLoad.toString());
+//                //print log check
+//                Log.d("data", dataLoad.toString());
                 inputStream.close();
                 inputStreamReader.close();
                 bufferedReader.close();
@@ -128,8 +144,15 @@ public class MainActivity extends Activity {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+                isCheckConnection = false;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, "no connection", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return e.toString();
             }
-//            return null;
             return dataLoad.toString();
         }
 
@@ -149,6 +172,10 @@ public class MainActivity extends Activity {
             loadMore.setRefreshing(false);
             isLoading = false;
 
+            if (isRefresh && isCheckConnection){
+                listManager.clear();
+            }
+
             ParserDataJSON parserDataJSON = new ParserDataJSON(s);
 
             List<String> listContentResult = parserDataJSON.getListContent();
@@ -164,8 +191,8 @@ public class MainActivity extends Activity {
                         listContentResult.get(i));
                 listManager.add(myData);
             }
-                mAdapter.backupData(listManager);
-            mAdapter.notifyDataSetChanged();
+            mMyAdapter.saveData(listManager);
+            mMyAdapter.notifyDataSetChanged();
 //            mAdapter = new MyAdapter(getApplication(),listImageView,listContentResult,listName);
 
         }
