@@ -2,7 +2,10 @@ package com.example.root.appday.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.root.appday.ActivityTest.NavigationDrawerActivity;
+import com.example.root.appday.ActivityTest.NetworkUtils;
 import com.example.root.appday.Adapter.MyAdapter;
 import com.example.root.appday.Models.MyData;
 import com.example.root.appday.JSON.ParserDataJSON;
@@ -33,18 +37,23 @@ public class MainActivity extends Activity {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout loadMore;
-    private String path = "";
+    private String path = "https://alpha-api.app.net/stream/0/posts/stream/global";
     private DownLoadData downLoadData;
     private ProgressDialog mProgressDialog;
     private List<MyData> listManager;
     private boolean isLoading = false;
-    private boolean isCheckConnection = true;
+    private boolean isCheckConnection;
+    private boolean isNetworkConnection = true;
     private boolean isRefresh = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        NetworkUtils networkUtils = new NetworkUtils(this);
+//        isCheckConnection = networkUtils.isConected();
 
         //Load Data refresh khi dau trang
         loadMore = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
@@ -148,7 +157,7 @@ public class MainActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.this, "no connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "no connection...", Toast.LENGTH_SHORT).show();
                     }
                 });
                 return e.toString();
@@ -172,7 +181,7 @@ public class MainActivity extends Activity {
             loadMore.setRefreshing(false);
             isLoading = false;
 
-            if (isRefresh && isCheckConnection){
+            if (isRefresh && isNetworkConnection) {
                 listManager.clear();
             }
 

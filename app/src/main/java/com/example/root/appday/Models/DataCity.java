@@ -10,6 +10,9 @@ public class DataCity {
     private String state;
     private String description;
 
+    public DataCity() {
+    }
+
 
     public int getId() {
         return id;
