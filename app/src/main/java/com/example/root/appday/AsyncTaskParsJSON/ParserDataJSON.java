@@ -1,4 +1,4 @@
-package com.example.root.appday.JSON;
+package com.example.root.appday.AsyncTaskParsJSON;
 
 import android.util.Log;
 

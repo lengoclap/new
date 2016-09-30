@@ -1,4 +1,4 @@
-package com.example.root.appday.Models;
+package com.example.root.appday.ParsJSONSaveData;
 
 /**
  * Created by root on 28/09/2016.

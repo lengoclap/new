@@ -8,7 +8,7 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     tools:openDrawwer="start"
-    tools:context=".ActivityTest.NavigationDrawerActivity">
+    tools:context=".NavigationDrawer.NavigationDrawerActivity">
 
     <include
         layout="@layout/app_bar_main"

@@ -1,13 +1,11 @@
-package com.example.root.appday.ActivityTest;
+package com.example.root.appday.ParsJSONSaveData;
 
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.example.root.appday.Adapter.CityAdapter;
-import com.example.root.appday.DBHandlerSample;
-import com.example.root.appday.Models.DataCity;
+import com.example.root.appday.NetworkUtils;
 import com.example.root.appday.R;
 
 import java.util.ArrayList;

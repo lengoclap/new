@@ -1,11 +1,8 @@
-package com.example.root.appday.Activities;
+package com.example.root.appday.AsyncTaskParsJSON;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,12 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.root.appday.ActivityTest.NavigationDrawerActivity;
-import com.example.root.appday.ActivityTest.NetworkUtils;
-import com.example.root.appday.Adapter.MyAdapter;
-import com.example.root.appday.Models.MyData;
-import com.example.root.appday.JSON.ParserDataJSON;
+import com.example.root.appday.NavigationDrawer.NavigationDrawerActivity;
 import com.example.root.appday.R;
+import com.example.root.appday.ParsJSONSaveData.SampleSaveDataSQLActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -116,6 +110,11 @@ public class MainActivity extends Activity {
 
     public void startNavigationDrawer(View view) {
         Intent intent = new Intent(MainActivity.this, NavigationDrawerActivity.class);
+        startActivity(intent);
+    }
+
+    public void startDataSample(View view) {
+        Intent intent = new Intent(MainActivity.this, SampleSaveDataSQLActivity.class);
         startActivity(intent);
     }
 

@@ -1,5 +1,6 @@
-package com.example.root.appday.ActivityTest;
+package com.example.root.appday.NavigationDrawer;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.root.appday.DetailActivity;
 import com.example.root.appday.R;
 
 public class NavigationDrawerActivity extends AppCompatActivity {
@@ -61,6 +63,8 @@ public class NavigationDrawerActivity extends AppCompatActivity {
                 if (id == R.id.nav_camera) {
                     // Handle the camera action
                 } else if (id == R.id.nav_gallery) {
+                    Intent intent = new Intent(NavigationDrawerActivity.this, DetailActivity.class);
+                    startActivity(intent);
 
                 } else if (id == R.id.nav_slideshow) {
 

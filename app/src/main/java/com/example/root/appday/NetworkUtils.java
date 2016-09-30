@@ -1,4 +1,4 @@
-package com.example.root.appday.ActivityTest;
+package com.example.root.appday;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

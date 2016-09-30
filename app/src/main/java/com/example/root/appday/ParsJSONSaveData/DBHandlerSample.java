@@ -1,4 +1,4 @@
-package com.example.root.appday;
+package com.example.root.appday.ParsJSONSaveData;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.root.appday.Models.DataCity;
+import com.example.root.appday.ParsJSONSaveData.CityListener;
+import com.example.root.appday.ParsJSONSaveData.DataCity;
 
 import java.util.ArrayList;
 

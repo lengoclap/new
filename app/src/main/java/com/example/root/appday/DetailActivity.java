@@ -1,4 +1,4 @@
-package com.example.root.appday.Activities;
+package com.example.root.appday;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.example.root.appday.Adapter;
+package com.example.root.appday.AsyncTaskParsJSON;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.root.appday.Activities.DetailActivity;
-import com.example.root.appday.Models.MyData;
+import com.example.root.appday.DetailActivity;
 import com.example.root.appday.R;
 
 import java.util.List;

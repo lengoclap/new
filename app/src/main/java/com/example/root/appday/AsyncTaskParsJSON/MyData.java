@@ -1,4 +1,4 @@
-package com.example.root.appday.Models;
+package com.example.root.appday.AsyncTaskParsJSON;
 
 import android.content.Context;
 import android.media.Image;

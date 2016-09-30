@@ -1,6 +1,6 @@
-package com.example.root.appday;
+package com.example.root.appday.ParsJSONSaveData;
 
-import com.example.root.appday.Models.DataCity;
+import com.example.root.appday.ParsJSONSaveData.DataCity;
 
 import java.util.ArrayList;
 
