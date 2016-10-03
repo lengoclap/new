@@ -11,9 +11,6 @@ import com.example.root.appday.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by root on 29/09/2016.
- */
 public class CityAdapter extends BaseAdapter {
 
     private Context context;
@@ -55,8 +52,6 @@ public class CityAdapter extends BaseAdapter {
             String cityName =  dataCity.getName();
             mViewHolder.tvListCity.setText(cityName);
         }
-
-
 
         return null;
     }

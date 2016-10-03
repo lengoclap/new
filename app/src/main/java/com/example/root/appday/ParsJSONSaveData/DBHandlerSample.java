@@ -61,7 +61,7 @@ public class DBHandlerSample extends SQLiteOpenHelper implements CityListener {
         return mListModelData;
     }
 
-    //Search trung name ngya colum dau tien la 0
+    //Search trung name ngay column dau tien la 0
     public ArrayList<DataCity> getNameDataDistinct() {
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -134,6 +134,8 @@ public class DBHandlerSample extends SQLiteOpenHelper implements CityListener {
         } catch (Exception e) {
             Log.e("error", e + "");
         }
+
+
         return cityList;
     }
 

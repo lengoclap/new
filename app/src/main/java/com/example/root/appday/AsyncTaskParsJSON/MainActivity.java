@@ -28,13 +28,14 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     private MyAdapter mMyAdapter;
+    private List<MyData> listManager;
     private RecyclerView mRecyclerView;
+    private String path = "https://alpha-api.app.net/stream/0/posts/stream/global";
+
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout loadMore;
-    private String path = "https://alpha-api.app.net/stream/0/posts/stream/global";
     private DownLoadData downLoadData;
     private ProgressDialog mProgressDialog;
-    private List<MyData> listManager;
     private boolean isLoading = false;
     private boolean isCheckConnection;
     private boolean isNetworkConnection = true;
