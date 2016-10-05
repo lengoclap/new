@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class CityAdapter extends BaseAdapter {
 
-    private Context context;
-    private ArrayList<DataCity> listData;
+    Context context;
+    ArrayList<DataCity> listData;
 
-    public CityAdapter(Context context, ArrayList<DataCity> listData) {
+    public CityAdapter(Context context,ArrayList<DataCity> listData){
         this.context = context;
         this.listData = listData;
     }
@@ -27,38 +27,33 @@ public class CityAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return listData.get(i);
+    public Object getItem(int position) {
+        return listData.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return i;
+    public long getItemId(int position) {
+        return position;
     }
-
+    class ViewHolder {
+        private TextView textViewCityName;
+    }
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder mViewHolder= null;
-        if (mViewHolder==null){
-            LayoutInflater inflater = (LayoutInflater) context.
-                    getSystemService(context.LAYOUT_INFLATER_SERVICE);
+    public View getView(int position, View view, ViewGroup viewGroup) {
+        ViewHolder viewHolder = null;
+        if(view == null){
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.city_item,null);
-             mViewHolder = new ViewHolder();
-            mViewHolder.tvListCity= (TextView) view.findViewById(R.id.tv_city);
-            view.setTag(mViewHolder);
-        } else {
-            mViewHolder= (ViewHolder) view.getTag();
-            DataCity dataCity = listData.get(i);
-            String cityName =  dataCity.getName();
-            mViewHolder.tvListCity.setText(cityName);
+            viewHolder = new ViewHolder();
+            viewHolder.textViewCityName = (TextView) view.findViewById(R.id.tv_city);
+            view.setTag(viewHolder);
+        }else{
+            viewHolder = (ViewHolder) view.getTag();
         }
-
-        return null;
-    }
-
-    public static class ViewHolder  {
-        private TextView tvListCity;
-
+        DataCity city = listData.get(position);
+        String cityName = city.getName();
+        viewHolder.textViewCityName.setText(cityName);
+        return view;
     }
 
 }

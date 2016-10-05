@@ -5,22 +5,42 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    tools:context=".AsyncTaskParsJSON.MainActivity">>
+    tools:context=".AsyncTaskParsJSON.MainActivity">
 
-    <Button
-        android:id="@+id/btn_start_data_saple"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="start data sample"
-        android:onClick="startDataSample"/>
+    <GridLayout
+        android:id="@+id/id_gird_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2">
+
+        <Button
+            android:id="@+id/btn_start_data_saple"
+            android:layout_width="@dimen/width_button"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:text="start data sample"
+            android:onClick="startDataSample"/>
 
 
-    <Button
-        android:id="@+id/start_nav_drawer"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="start nav drawer"
-        android:onClick="startNavigationDrawer"/>
+        <Button
+            android:id="@+id/start_nav_drawer"
+            android:layout_width="@dimen/width_button"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:text="start nav drawer"
+            android:onClick="startNavigationDrawer"/>
+
+        <Button
+            android:id="@+id/start_send_email"
+            android:layout_width="@dimen/width_button"
+            android:layout_height="wrap_content"
+            android:text="start Send Email"
+            android:onClick="startSendEmail"/>
+
+    </GridLayout>
+
+
+
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"

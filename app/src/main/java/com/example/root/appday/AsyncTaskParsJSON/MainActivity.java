@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.root.appday.NavigationDrawer.NavigationDrawerActivity;
 import com.example.root.appday.R;
 import com.example.root.appday.ParsJSONSaveData.SampleSaveDataSQLActivity;
+import com.example.root.appday.SendMail.SendMailActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -105,6 +106,7 @@ public class MainActivity extends Activity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        //Start method DownLoadData
         downLoadData = new DownLoadData();
         downLoadData.execute(path);
     }
@@ -119,10 +121,25 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+    public void startSendEmail(View view) {
+
+        Intent intent =  new Intent(MainActivity.this, SendMailActivity.class);
+        startActivity(intent);
+    }
+
 
     public class DownLoadData extends AsyncTask<String, Void, String> {
 
         StringBuilder dataLoad;
+
+        @Override
+        protected void onPreExecute() {
+            isLoading = true;
+            mProgressDialog = new ProgressDialog(MainActivity.this);
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.show();
+
+        }
 
         @Override
         protected String doInBackground(String... strings) {
@@ -163,15 +180,6 @@ public class MainActivity extends Activity {
                 return e.toString();
             }
             return dataLoad.toString();
-        }
-
-        @Override
-        protected void onPreExecute() {
-            isLoading = true;
-            mProgressDialog = new ProgressDialog(MainActivity.this);
-            mProgressDialog.setMessage("Loading...");
-            mProgressDialog.show();
-
         }
 
         @Override

@@ -24,10 +24,9 @@ public class DBHandlerSample extends SQLiteOpenHelper implements CityListener {
     private static final String KEY_NAME = "_name";
     private static final String KEY_STATE = "_state";
     private static final String KEY_DESCRIPTION = "_description";
-    public String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_ID + " INTEGER PRIMARY KEY, "
-            + KEY_NAME + " TEXT, " + KEY_STATE + " TEXT, " + KEY_DESCRIPTION + " TEXT)";
-    public String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
+    String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+KEY_ID+" INTEGER PRIMARY KEY,"+KEY_NAME+" TEXT,"+KEY_STATE+" TEXT,"+KEY_DESCRIPTION+" TEXT)";
+    String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME;
 
     public DBHandlerSample(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -86,59 +85,57 @@ public class DBHandlerSample extends SQLiteOpenHelper implements CityListener {
     }
 
 
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(CREATE_TABLE);
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_TABLE);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL(DROP_TABLE);
-        onCreate(sqLiteDatabase);
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL(DROP_TABLE);
+        onCreate(db);
     }
 
     @Override
     public void addCity(DataCity city) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        try {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try{
             ContentValues values = new ContentValues();
             values.put(KEY_NAME, city.getName());
             values.put(KEY_STATE, city.getState());
-            values.put(KEY_DESCRIPTION, city.getDescription());
-            sqLiteDatabase.insert(TABLE_NAME, null, values);
-            sqLiteDatabase.close();
-        } catch (Exception e) {
-            Log.e("Problem", e + "");
+            values.put(KEY_DESCRIPTION,city.getDescription());
+            db.insert(TABLE_NAME, null, values);
+            db.close();
+        }catch (Exception e){
+            Log.e("problem",e+"");
         }
     }
 
     @Override
     public ArrayList<DataCity> getAllCity() {
-        SQLiteDatabase sqLiteDatabase1 = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<DataCity> cityList = null;
-        try {
+        try{
             cityList = new ArrayList<DataCity>();
-            String QUERY = "SELECT * FROM"+ TABLE_NAME;
-            Cursor cursor = sqLiteDatabase1.rawQuery(QUERY,null);
-            if (!cursor.isLast()){
-                while (cursor.moveToNext()){
-                    DataCity dataCity = new DataCity();
-                    dataCity.setId(cursor.getInt(0));
-                    dataCity.setName(cursor.getString(1));
-                    dataCity.setState(cursor.getString(2));
-                    dataCity.setDescription(cursor.getString(3));
+            String QUERY = "SELECT * FROM "+TABLE_NAME;
+            Cursor cursor = db.rawQuery(QUERY, null);
+            if(!cursor.isLast())
+            {
+                while (cursor.moveToNext())
+                {
+                    DataCity city = new DataCity();
+                    city.setId(cursor.getInt(0));
+                    city.setName(cursor.getString(1));
+                    city.setState(cursor.getString(2));
+                    city.setDescription(cursor.getString(3));
+                    cityList.add(city);
                 }
             }
-            sqLiteDatabase1.close();
-
-        } catch (Exception e) {
-            Log.e("error", e + "");
+            db.close();
+        }catch (Exception e){
+            Log.e("error",e+"");
         }
-
-
         return cityList;
     }
-
 
     @Override
     public int getCityCount() {

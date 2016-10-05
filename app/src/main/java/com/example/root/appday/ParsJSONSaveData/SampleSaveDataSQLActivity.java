@@ -26,8 +26,8 @@ import java.util.List;
 
 public class SampleSaveDataSQLActivity extends AppCompatActivity {
 
-    private CityAdapter adapter;
-    private DBHandlerSample handler;
+    private CityAdapter mCityAdapter;
+    private DBHandlerSample mHandler;
     private ArrayList<DataCity> cityArrayList;
 
     private String path = "http://beta.json-generator.com/api/json/get/GAqnlDN";
@@ -41,11 +41,9 @@ public class SampleSaveDataSQLActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sample_save_data_sql);
 
         listView = (ListView) findViewById(R.id.list_view_city);
-        handler = new DBHandlerSample(this);
+        mHandler = new DBHandlerSample(this);
 
-         cityArrayList = handler.getAllCity();
-        adapter = new CityAdapter(SampleSaveDataSQLActivity.this, cityArrayList);
-        listView.setAdapter(adapter);
+
 
         mDatafetcherTask = new DataFetcherTask();
         mDatafetcherTask.execute(path);
@@ -133,6 +131,10 @@ public class SampleSaveDataSQLActivity extends AppCompatActivity {
 //            }
             ParserData data = new ParserData();
             data.getDataCity();
+            cityArrayList = new ArrayList<>();
+            mCityAdapter = new CityAdapter(SampleSaveDataSQLActivity.this, cityArrayList);
+            listView.setAdapter(mCityAdapter);
+//            mCityAdapter.getView()
             super.onPostExecute(s);
         }
     }
